@@ -3,6 +3,9 @@
     <head>
         <title>2048</title>
         <link rel="stylesheet" href="css/2048.css">
+        <script   src="http://code.jquery.com/jquery-3.4.1.min.js"   
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
+        <script src='2048.js'></script>
     </head>
     <body>
         <div id='fixbox'>
@@ -10,17 +13,50 @@
         </div>
         <div id='board'>
             <div id='name'>2048</div>
-            <div id='controller'>
-                <ul id='list'>
-                    <li>start</li>
-                    <li>change version</li>
-                    <li>return</li>
-                    <li>restart</li>
-                    
-                </ul>
+            <div id='control'>
+                
+                <div id='scoreContainer'>
+                    <div id='Score'>Score: <div class='OutputT' id='scoreCount'>0</div>
+                    </div>
+                    <div id='Best'>Best:<div class='OutputT' id='bestCount'>0</div>
+                    </div>
+                </div>
+                <div id='newG'>
+                    <button id='Restart' class='butStyle'>New Game</button>
+                    <button id='changeV' class='butStyle'>Change Version</button>
+                    <button id='sound' class='butStyle'>music</button>
+                </div>
+                
             </div>
-            <div id='gameboard'>
+            <div id='mainboard'>
+                <div id='gameboard'>
+                    <div class='row'>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                    </div>
+                    <div class='row'>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                    </div>
+                    <div class='row'>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                    </div>
+                    <div class='row'>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                        <div class='cell'></div>
+                    </div>
+                </div>
             </div>
+            <div id='aboutus'></div>
         </div>
     </body>
 </html>
