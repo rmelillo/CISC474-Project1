@@ -27,9 +27,9 @@ body {
 	border: 5px solid blue;
 }
 
-#gameboard {
+#mainboard {
 	margin:0 auto;
-	top:300px;
+	top:0px;
 	/*width:500px;
 	height:500px;
 	*/
@@ -37,7 +37,35 @@ body {
 	height:600px;
 	position:relative;
 	border: 5px solid green;
+	z-index: 1;
 }
+
+#gameboard {
+	width: 510px;
+	height: 500px;
+	border: 3px solid orange;
+}
+
+.row {
+	width: 100%;
+	height:125px;
+	position: relative;
+	margin:0 auto;
+	border: solid 1px black;
+}
+
+.cell {
+	width: 120px;
+	height: 120px;
+	margin-right: 5px;
+	float: left;
+	border-radius: 5px;
+	border: solid 1px blue;
+}
+
+	.cell:last-child {
+	  margin-right: 5px; 
+	}
 
 #name {
 	margin:0 auto;
@@ -45,7 +73,52 @@ body {
 	text-align: center;
 	font-size: 70px;
 	width: 100%;
+	height: 100px;
 }
+
+#control {
+	margin: 0 auto;
+	top: 0px;
+	width:80%;
+	height:300px;
+	position:relative;
+	border:5px solid pink;
+}
+
+#scoreContainer {
+	margin:0 auto;
+	right: 0;
+	width: 30%;
+	height: 70px;
+	position: absolute;
+	font-size:30px;
+	border: solid 3px green;
+}
+
+#newG {
+	border: solid 3px green;
+	margin:0 auto;
+	top:0;
+	width:30%;
+	height: 30px;
+	position: absolute;
+
+}
+
+.OutputT {
+	border: solid 1px black;
+
+}
+
+
+#aboutus {
+	margin: 0 auto;
+	width:100%;
+	height: 400px;
+	position:relative;
+	border: 3px solid yellow;
+}
+
 /*
 #list {
 	width: 100%;
