@@ -1,6 +1,23 @@
 
 //Team Rocket's 2048 project for CISC474
 
+//Code for importing a single image and displaying it in left menu
+window.addEventListener('load', function() {
+	document.querySelector('input[type="file"]').addEventListener('change', function() {
+		if (this.files && this.files[0]) {
+			var img = document.querySelector('img');  // $('img')[0]
+			img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+			img.onload = imageIsLoaded;
+		}
+	});
+  });
+  
+  function imageIsLoaded() { 
+	alert(this.src);  // blob url
+	// update width and height ...
+  }
+
+
 //check for non-arrow inputs; just "N" for new game and "Q" for quit now, but more can be added 	
 function checkKey(e) {
 	e = e || window.event;
