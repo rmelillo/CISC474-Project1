@@ -41,10 +41,16 @@ body {
 }
 
 #gameboard {
-	width: 510px;
+	left:15%;
+	top:30px;
+	width: 500px;
 	height: 500px;
+	padding: 15px;
+	cursor: default;
 	border: 3px solid orange;
 	position:absolute;
+	background: #EAA1A1;
+	border-radius:10px;
 }
 /*
 .row {
@@ -56,10 +62,10 @@ body {
 }
 */
 .row {
-	margin-bottom:10px;
+	margin-top:5px;
 }
 .row:last-child {
-	margin-bottom:0;
+	margin-bottom:10px;
 }
 .row:after {
     content: "";
@@ -67,18 +73,17 @@ body {
     clear: both; }
 
 .cell {
-	width: 107px;
-	height: 107px;
-	margin-top:1px;
-	margin-right:10px;
+	width: 112px;
+	height: 112px;
+	margin-top:4px;
+	margin-left:11.5px;
 	float: left;
 	border-radius: 5px;
-	border: solid 1px blue;
-	background: rgba(238, 228, 218, 0.35);
+	background: rgba(241, 238, 235, 0.35);
 }
 
 	.cell:last-child {
-	  margin-right: 5px; 
+	  margin-right: 0px; 
 	}
 
 #name {
@@ -132,6 +137,8 @@ body {
 	position:relative;
 	border: 3px solid yellow;
 }
+
+
 
 /*
 #list {
