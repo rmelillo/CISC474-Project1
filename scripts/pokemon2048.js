@@ -1,8 +1,11 @@
+// game object
 var pokemon2048 = function(){
 
     /*the following alert window is just to instruct the user on the N and Q functionality, but it should probably be in the 
 	html file.  Since I'm not doing that I figured I'd leave it to whoever is, and we can just delete it from here then.*/
+	// TODO:: implement showing instructions
 	alert("Welcome to a game closely resembling 2048! At any time press N for a new game or Q to quit.");
+
 	this.tiles    = [];
 	this.dir      = 0;
 	this.score    = 0;
@@ -35,7 +38,9 @@ var pokemon2048 = function(){
 			this.restart();
 		}
     }
-    
+	
+	
+	// reset variables to restart the game
     this.restart = function(){
 		this.tiles    = [];
 		this.dir      = 0;
@@ -44,7 +49,8 @@ var pokemon2048 = function(){
 		this.generateTile();
 		this.generateTile();
     }
-    
+	
+	// generates a new tile at random open position, value is 2 or 4
     this.generateTile = function(){
 		let positions = this.getOpenPositions();
 		let pos       = positions[Math.floor(Math.random()*positions.length)];
@@ -55,7 +61,7 @@ var pokemon2048 = function(){
     this.generateTile();
 	
 
-
+	// calculate & complete a move
 	this.animate = function(){
 
 		if(self.dir === 0)
@@ -89,6 +95,7 @@ var Tile = function(pos, val, puzzle){
     this.getCol = () => Math.round(this.pos % 4);
     this.getRow = () => Math.floor(this.pos / 4);
 
+	
     this.move = function(dir){
         let col = this.getCol() + (1 - 2*(dir < 0))*Math.abs(dir)%4;
         let row = this.getRow() + (1 - 2*(dir < 0))*Math.floor(Math.abs(dir)/4);

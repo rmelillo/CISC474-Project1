@@ -14,6 +14,7 @@ var pokemon2048UI=function(){
             40: 4   // Down
         };
 
+        // key listener
         $('body').keydown(function(event){
             // console.info("keydown det:", event.which);
             var mapped_dir = map_keyevent_to_dir[event.which];
@@ -42,14 +43,20 @@ var pokemon2048UI=function(){
             },0);
             
         });
+
+        // Restart btn listener
         $('#Restart').on('click', function(){
             console.info("Restart btn clicked");
             self.game.restart();
             self.updateUI();
         });
+
+        // ChangeV btn listener
         $('#changeV').on('click', function(){
             console.info("changeV btn clicked");
         });
+
+        // Sound btn listener
         $('#sound').on('click', function(){
             console.info("sound btn clicked");
         });
@@ -58,10 +65,12 @@ var pokemon2048UI=function(){
 
     };
 
+    // TODO:: put in animation codes?
     this.refreshView = function(){
         
     };
 
+    // call this to update display after each move
     this.updateUI = function(){
         // if (self.running==false) {
         //     return;
