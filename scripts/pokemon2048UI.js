@@ -4,7 +4,6 @@ var pokemon2048UI=function(){
     this.running = false;
 
     this.initialize = function(){
-        // TODO:: implement initialization function
 
         self.game = new pokemon2048();
 
@@ -21,12 +20,27 @@ var pokemon2048UI=function(){
             if (mapped_dir !== undefined) {
                 event.preventDefault();
                 self.game.dir = mapped_dir;
-
                 do {
                 self.game.animate();
-                } while (self.game.hasMoved === true);
-                self.updateUI();
+                } while (self.game.hasMoved === true); 
             }
+            else if (event.which == 82) {
+                var answer = confirm("This will start a new game.");
+                if (answer == true) {
+                    self.game.restart();
+                } 
+            }
+            else if (event.which == 81) {
+                var answer = confirm("This will close your browser tab.");
+                if (answer == true) {
+                    window.close();	
+                }
+            }
+            self.updateUI();
+            setTimeout(() => {
+                self.game.checkGameState();
+            },0);
+            
         });
         $('#Restart').on('click', function(){
             console.info("Restart btn clicked");
@@ -41,40 +55,19 @@ var pokemon2048UI=function(){
         });
 
         self.updateUI();
-        // maybe move key detection here
 
-        // definitelly btn detection
     };
 
     this.refreshView = function(){
         
     };
 
-    // this.takeMove = function(){
-    //     if (self.game.dir === 0)
-    //         return;
-
-    //     let moving = false;
-    //     self.game.tiles.sort((x,y) => self.game.dir*(y.pos - x.pos));
-    //     for(let tile of self.game.tiles)
-    //         moving = moving || tile.move(this.dir);
-        
-    //     if(self.game.hasMoved && !moving){
-    //         self.game.dir = 0;
-    //         self.game.generateTile();
-
-    //         for(let tile of this.tiles)
-    //             tile.merging = false;
-    //     } 
-    //     this.hasMoved = moving;
-    // };
-
     this.updateUI = function(){
         // if (self.running==false) {
         //     return;
         // }
 
-        // Need to add animations.
+        // TODO:: Need to add animations.
 
         $(".cell").each(function(){
             var cell_id = parseInt($(this).attr("id"));         
@@ -90,6 +83,8 @@ var pokemon2048UI=function(){
 
         });
 
+        $('#scoreCount').text(self.game.score);
+        $('#bestCount').text(Math.max(self.game.score, $('#bestCount').text()));
     }
 
     this.initialize();

@@ -12,8 +12,8 @@ var pokemon2048 = function(){
     this.getOpenPositions = () => this.validPositions.filter(i => this.tiles.map(x => x.pos).indexOf(i) === -1);
 	this.getTile          = pos => this.tiles.filter(x => x.pos === pos)[0];
 	this.removeTile       = tile => this.tiles.splice(this.tiles.indexOf(tile), 1);
-    this.winCondition     = () => this.tiles.some(x => x.val === 2048);
-    
+	this.winCondition     = () => this.tiles.some(x => x.val === 2048);
+	
     //check for moves remaining
 	this.validMoves = function(){
 		if(this.tiles.length < 16)
