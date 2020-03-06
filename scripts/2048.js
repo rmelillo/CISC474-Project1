@@ -139,6 +139,7 @@ function runGame(){
 				tile.merging = false;
 		} 
 		this.hasMoved = moving;
+		
 	}
 
 	this.generateTile = function(){

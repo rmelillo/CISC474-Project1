@@ -53,7 +53,31 @@ var pokemon2048 = function(){
 	}
 	this.generateTile();
     this.generateTile();
-    
+	
+
+
+	this.animate = function(){
+
+		if(self.dir === 0)
+			return;
+
+		let moving = false;
+		this.tiles.sort((x,y) => this.dir*(y.pos - x.pos));
+		for(let tile of this.tiles)
+			moving = moving || tile.move(this.dir);
+
+		if(this.hasMoved && !moving){
+			this.dir = 0;
+			this.generateTile();
+
+			for(let tile of this.tiles)
+				tile.merging = false;
+		} 
+		this.hasMoved = moving;
+	}
+
+
+	
 }
 
 var Tile = function(pos, val, puzzle){
