@@ -55,7 +55,45 @@ var pokemon2048 = function(){
 		let positions = this.getOpenPositions();
 		let pos       = positions[Math.floor(Math.random()*positions.length)];
 		let val       = 2 + 2*Math.floor(Math.random()*1.11);
+		let img       = new Image()
 		this.tiles.push(new Tile(pos, val, this));
+
+		if (this.val = 2){
+			img = pichu.gif;
+		} else if (this.val = 4){
+			img = pikachu1.gif;
+		}
+		  else if (this.val = 8){
+			img = raichu.gif;
+		}
+		  else if (this.val = 16){
+			img = squirtle1.gif;
+		}
+		  else if (this.val = 32){
+			img = kameil.gif;
+		}
+		  else if (this.val = 64){
+			img = blastoise.gif;
+		}
+		  else if (this.val = 32){
+			img = bulbasaur.gif;
+		}
+		  else if (this.val = 32){
+			img = ivysaur.gif;
+		}
+		  else if (this.val = 32){
+			img = Venusaur.gif;
+		   } else{
+			img = mew.gif
+		}
+		
+
+
+			
+			
+
+
+
 	}
 	this.generateTile();
     this.generateTile();
@@ -66,6 +104,7 @@ var pokemon2048 = function(){
 
 		if(self.dir === 0)
 			return;
+		
 
 		let moving = false;
 		this.tiles.sort((x,y) => this.dir*(y.pos - x.pos));
