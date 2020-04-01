@@ -83,7 +83,10 @@ var pokemon2048UI=function(){
             var cur_tile = self.game.getTile(cell_id);
             if (cur_tile !== undefined && cur_tile != null){
                 // console.info("Found a cell! ", cell_id);
-                $(this).text(cur_tile.val);
+                // $(this).text(cur_tile.val);
+
+                $(this).html("<img src='pokemon/Edited/" + cur_tile.val + ".gif'></img>");
+
                 // TODO:: need to Replace with CSS functions.
             }
             else {
