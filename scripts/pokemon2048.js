@@ -87,9 +87,23 @@ var pokemon2048 = function(){
 }
 
 var Tile = function(pos, val, puzzle){
+	function sound(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+        this.play = function(){
+          this.sound.play();
+        }
+        this.stop = function(){
+          this.sound.pause();
+        }
+      }
     this.pos = pos;
     this.val = val;
-    this.puzzle  = puzzle;
+    this.puzzle  = puzzle; 
     this.merging = false;
 	
     this.getCol = () => Math.round(this.pos % 4);
@@ -116,6 +130,19 @@ var Tile = function(pos, val, puzzle){
 
         this.pos += dir;
         return true;
-    }
+	}
+	var sound4;
+	var sound16;
+	var ding;
+	sound4 = new sound("sounds/4.wav");
+	sound16 = new sound("sounds/8.wav");
+	ding = new sound ("sounds/ding.mp3");
+	if(cur_tile = 16){
+		ding.play();
+	} else if (cur_tile = 4){
+		ding.play();
+	}else {
+		ding.play();
+			}                
+};
 
-}

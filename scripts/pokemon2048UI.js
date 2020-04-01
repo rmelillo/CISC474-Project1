@@ -115,19 +115,7 @@ var pokemon2048UI=function(){
             else {
                 $(this).text("");
             }
-            var sound4;
-            var sound16;
-            var ding;
-            sound4 = new sound("sounds/4.wav");
-            sound16 = new sound("sounds/8.wav");
-            ding = new sound ("sounds/ding.mp3");
-            if(cur_tile = 4){
-                sound4.play();
-            } else if (cur_tile = 16){
-                sound16.play();
-            }else {
-                ding.play();
-                    }                
+             
         });
 
         $('#scoreCount').text(self.game.score);
