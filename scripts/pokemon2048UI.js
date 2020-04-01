@@ -2,11 +2,25 @@ var pokemon2048UI=function(){
     var self = this;
     this.game = undefined;
     this.running = false;
-
+    
+    function sound(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+        this.play = function(){
+          this.sound.play();
+        }
+        this.stop = function(){
+          this.sound.pause();
+        }
+      }
     this.initialize = function(){
 
         self.game = new pokemon2048();
-
+        
         var map_keyevent_to_dir = {
             37: -1, // Left
             38: -4, // Up
@@ -47,6 +61,9 @@ var pokemon2048UI=function(){
         // Restart btn listener
         $('#Restart').on('click', function(){
             console.info("Restart btn clicked");
+            var startSound;
+            startSound = new sound("sounds/start.wav")
+            startSound.play();
             self.game.restart();
             self.updateUI();
         });
@@ -59,6 +76,9 @@ var pokemon2048UI=function(){
         // Sound btn listener
         $('#sound').on('click', function(){
             console.info("sound btn clicked");
+            var themeSong;
+            themeSong = new sound("sounds/pokerap.mp3")
+            themeSong.play();
         });
 
         self.updateUI();
@@ -69,6 +89,7 @@ var pokemon2048UI=function(){
     this.refreshView = function(){
         
     };
+
 
     // call this to update display after each move
     this.updateUI = function(){
@@ -87,12 +108,26 @@ var pokemon2048UI=function(){
 
                 $(this).html("<img src='pokemon/Edited/" + cur_tile.val + ".gif'></img>");
 
+                
+
                 // TODO:: need to Replace with CSS functions.
             }
             else {
                 $(this).text("");
             }
-
+            var sound4;
+            var sound16;
+            var ding;
+            sound4 = new sound("sounds/4.wav");
+            sound16 = new sound("sounds/8.wav");
+            ding = new sound ("sounds/ding.mp3");
+            if(cur_tile = 4){
+                sound4.play();
+            } else if (cur_tile = 16){
+                sound16.play();
+            }else {
+                ding.play();
+                    }                
         });
 
         $('#scoreCount').text(self.game.score);
