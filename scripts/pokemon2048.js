@@ -18,21 +18,6 @@ var pokemon2048 = function(){
 	this.removeTile       = tile => this.tiles.splice(this.tiles.indexOf(tile), 1);
 	this.winCondition     = () => this.tiles.some(x => x.val === 2048);
 	
-	// Moved to
-	//checks and merges mergible tiles at given positions
-	// this.mergeTiles = function(){
-	// 	for (let i = 0; i < 16; i++){
-	// 		pair = this.tiles.filter(x => x.pos === i);
-	// 		if (pair.length>=2){
-	// 			this.removeTile(pair[1]);
-	// 			tile = pair[0];
-	// 			this.score += tile.val;
-	// 			tile.val *= 2;
-	// 			tile.merging = false;
-	// 		}
-	// 	}
-	// }
-	
     //check for moves remaining
 	this.validMoves = function(){
 		if(this.tiles.length < 16)
@@ -62,8 +47,6 @@ var pokemon2048 = function(){
 		this.dir      = 0;
 		this.score    = 0;
 		this.hasMoved = false;
-		// this.generateTile(-1, -1);
-		// this.generateTile(-1, -1);
     }
 	
 	// generates a new tile at random open position, value is 2 or 4
@@ -75,44 +58,6 @@ var pokemon2048 = function(){
 		}
 		this.tiles.push(new Tile(pos, val, this));
 	}
-	// this.generateTile = function(pos){
-	// 	let val       = 2 + 2*Math.floor(Math.random()*1.11);
-	// 	this.tiles.push(new Tile(pos, val, this));
-	// }
-
-	// this.generateTile(-1, -1);
-    // this.generateTile(-1, -1);
-	
-
-	// Has been moved to UI.js
-
-	// calculate & complete a move
-	// this.animate = function(){
-
-	// 	if(self.dir === 0)
-	// 		return;
-
-	// 	for(let tile of this.tiles){
-	// 		tile.from = tile.pos;
-	// 	}
-
-	// 	let moving = false;
-	// 	this.tiles.sort((x,y) => this.dir*(y.pos - x.pos));
-	// 	for(let tile of this.tiles)
-	// 		moving = moving || tile.move(this.dir);
-	// 	this.hasMoved = this.hasMoved || moving;
-	// 	if(this.hasPossibleMoves && !moving){
-	// 	// if(!moving){
-	// 		this.mergeTiles();
-	// 		for(let tile of this.tiles){
-	// 			tile.merging = false;
-	// 		}
-	// 		this.dir = 0;
-	// 		this.generateTile();
-	// 	} 
-	// 	this.hasPossibleMoves = moving;
-	// }
-
 
 	
 }
@@ -127,7 +72,7 @@ var Tile = function(pos, val, puzzle){
     this.getCol = () => Math.round(this.pos % 4);
     this.getRow = () => Math.floor(this.pos / 4);
 
-	
+	// function for 1-unit length move
     this.move = function(dir){
         let col = this.getCol() + (1 - 2*(dir < 0))*Math.abs(dir)%4;
         let row = this.getRow() + (1 - 2*(dir < 0))*Math.floor(Math.abs(dir)/4);
@@ -142,8 +87,6 @@ var Tile = function(pos, val, puzzle){
 			target.merging = true;
 			this.pos = target.pos;
 			this.merging = true;
-			// $('#gif'+this.pos).addClass("to_delete");
-			// $('#gif'+target.pos).addClass("to_delete");
             return true;
         }
 

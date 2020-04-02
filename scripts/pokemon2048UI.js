@@ -20,13 +20,14 @@ var pokemon2048UI=function(){
                 return;
             }
             self.running = true;
-            // console.info("keydown det:", event.which);
+            
             var mapped_dir = map_keyevent_to_dir[event.which];
             if (mapped_dir !== undefined) {
                 event.preventDefault();
                 self.game.dir = mapped_dir;
                 self.animate();
             }
+            // Key 'R'
             else if (event.which == 82) {
                 var answer = confirm("This will start a new game.");
                 if (answer == true) {
@@ -36,6 +37,7 @@ var pokemon2048UI=function(){
                     self.generateNewTile();
                 } 
             }
+            // Key 'Esc'
             else if (event.which == 81) {
                 var answer = confirm("This will close your browser tab.");
                 if (answer == true) {
@@ -53,7 +55,6 @@ var pokemon2048UI=function(){
 
         // Restart btn listener
         $('#Restart').on('click', function(){
-            console.info("Restart btn clicked");
             self.game.restart();
             $('#tileboard').html("");
             
@@ -64,52 +65,35 @@ var pokemon2048UI=function(){
 
         // ChangeV btn listener
         $('#changeV').on('click', function(){
-            console.info("changeV btn clicked");
         });
 
         // Sound btn listener
         $('#sound').on('click', function(){
-            console.info("sound btn clicked");
-            // for Testing
-            $('#tileboard').append("<img class='gif' id='gif" + 5 + "' src='pokemon/Edited/" + 2 + 
-                ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(5)+"px; left:"
-                +self.calculateLeftMargin(5)+"px'></img>");
         });
 
         self.generateNewTile();
         self.generateNewTile();
-        console.log(self.game.tiles);
         self.updateUI();
 
     };
 
-    // TODO:: put in animation codes?
-    this.refreshView = function(){
-        
-    };
 
-    // call this to update display after each move
+    // Updates UI infos
     this.updateUI = function(){
-        // if (self.running==false) {
-        //     return;
-        // }
 
-        // TODO:: Need to add animations.
+        // $(".cell").each(function(){
+        //     var cell_id = parseInt($(this).attr("id"));         
+        //     var cur_tile = self.game.getTile(cell_id);
+        //     if (cur_tile !== undefined && cur_tile != null){
+        //         $(this).text(cur_tile.val);
 
-        $(".cell").each(function(){
-            var cell_id = parseInt($(this).attr("id"));         
-            var cur_tile = self.game.getTile(cell_id);
-            if (cur_tile !== undefined && cur_tile != null){
-                // console.info("Found a cell! ", cell_id);
-                $(this).text(cur_tile.val);
+        //         // TODO:: need to Replace with CSS functions.
+        //     }
+        //     else {
+        //         $(this).text("");
+        //     }
 
-                // TODO:: need to Replace with CSS functions.
-            }
-            else {
-                $(this).text("");
-            }
-
-        });
+        // });
 
         $('#scoreCount').text(self.game.score);
         $('#bestCount').text(Math.max(self.game.score, $('#bestCount').text()));
@@ -148,9 +132,9 @@ var pokemon2048UI=function(){
             self.game.hasPossibleMoves = moving;
         } while (self.game.hasPossibleMoves === true);
 
-        console.log(self.game.tiles);
     }
 
+    // Generates a new random tile
     this.generateNewTile = function(){
         let positions = self.game.getOpenPositions();
         let pos       = positions[Math.floor(Math.random()*positions.length)];
@@ -165,7 +149,7 @@ var pokemon2048UI=function(){
     }
 
 
-
+    // Simulates movements of tiles
     this.runMovements = function(){
         
         for (let tile of self.game.tiles){
@@ -186,18 +170,17 @@ var pokemon2048UI=function(){
         }
     }
 
+    // animates tiles merging
     this.mergeTiles = function(){
         for(let tile of self.game.tiles){
             if(tile.merging == true) {
                 $('#gif'+tile.pos).remove();
-                console.info("gif removed");
             }
         }
         for (let i = 0; i < 16; i++){
             pair = self.game.tiles.filter(x => x.pos === i);
 
             if (pair.length>=2){
-                console.log("before", self.game.tiles);
                 self.game.removeTile(pair[1]);
                 tile = pair[0];
                 self.game.score += tile.val;
@@ -209,22 +192,21 @@ var pokemon2048UI=function(){
                 +self.calculateLeftMargin(i)+"px'></img>");
                 $('#gif' + tile.pos).animate({height:'128px', width:'128px', left:'+=-8px', top:'+=-8px'}, 90);
                 $('#gif' + tile.pos).animate({height:'112px', width:'112px', left:'+=8px', top:'+=8px'}, 90);
-                console.log("after", self.game.tiles);
             }
             
         }
         
 	}
 
+    // takes position of tile and returns relative pixel position to the tileboard
     this.calculateTopMargin = function(pos){
         row = Math.floor(pos / 4);
-        // console.info("row", pos, row, row*122 / 4);
         return row*122 + 5;
     }
 
+    // takes position of tile and returns relative pixel position to the tileboard
     this.calculateLeftMargin = function(pos){
         col = Math.round(pos % 4);
-        // console.info("col", pos, col, col*122 + 4);
         return col*122 + 5;
     }
 
