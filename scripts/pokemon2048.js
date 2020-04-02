@@ -62,8 +62,8 @@ var pokemon2048 = function(){
 		this.dir      = 0;
 		this.score    = 0;
 		this.hasMoved = false;
-		this.generateTile(-1, -1);
-		this.generateTile(-1, -1);
+		// this.generateTile(-1, -1);
+		// this.generateTile(-1, -1);
     }
 	
 	// generates a new tile at random open position, value is 2 or 4
@@ -79,8 +79,9 @@ var pokemon2048 = function(){
 	// 	let val       = 2 + 2*Math.floor(Math.random()*1.11);
 	// 	this.tiles.push(new Tile(pos, val, this));
 	// }
-	this.generateTile(-1, -1);
-    this.generateTile(-1, -1);
+
+	// this.generateTile(-1, -1);
+    // this.generateTile(-1, -1);
 	
 
 	// Has been moved to UI.js
@@ -141,6 +142,8 @@ var Tile = function(pos, val, puzzle){
 			target.merging = true;
 			this.pos = target.pos;
 			this.merging = true;
+			// $('#gif'+this.pos).addClass("to_delete");
+			// $('#gif'+target.pos).addClass("to_delete");
             return true;
         }
 
