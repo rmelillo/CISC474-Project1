@@ -10,12 +10,27 @@ var pokemon2048 = function(){
 	this.dir      = 0;
 	this.score    = 0;
 	this.hasMoved = false;
+	this.hasPossibleMoves = false;
 	this.validPositions = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
     this.getOpenPositions = () => this.validPositions.filter(i => this.tiles.map(x => x.pos).indexOf(i) === -1);
 	this.getTile          = pos => this.tiles.filter(x => x.pos === pos)[0];
 	this.removeTile       = tile => this.tiles.splice(this.tiles.indexOf(tile), 1);
 	this.winCondition     = () => this.tiles.some(x => x.val === 2048);
+	
+	//checks and merges mergible tiles at given positions
+	this.mergeTiles = function(){
+		for (let i = 0; i < 16; i++){
+			pair = this.tiles.filter(x => x.pos === i);
+			if (pair.length>=2){
+				this.removeTile(pair[1]);
+				tile = pair[0];
+				this.score += tile.val;
+				tile.val *= 2;
+				tile.merging = false;
+			}
+		}
+	}
 	
     //check for moves remaining
 	this.validMoves = function(){
@@ -67,21 +82,25 @@ var pokemon2048 = function(){
 		if(self.dir === 0)
 			return;
 
+		for(let tile of this.tiles){
+			tile.from = tile.pos;
+		}
+
 		let moving = false;
 		this.tiles.sort((x,y) => this.dir*(y.pos - x.pos));
 		for(let tile of this.tiles)
 			moving = moving || tile.move(this.dir);
-
-		// if(this.hasMoved && !moving){
-		if(!moving){
-			for(let tile of this.tiles)
-			tile.merging = false;
-
+		this.hasMoved = this.hasMoved || moving;
+		if(this.hasPossibleMoves && !moving){
+		// if(!moving){
+			this.mergeTiles();
+			for(let tile of this.tiles){
+				tile.merging = false;
+			}
 			this.dir = 0;
 			this.generateTile();
-
 		} 
-		// this.hasMoved = moving;
+		this.hasPossibleMoves = moving;
 	}
 
 
@@ -110,10 +129,9 @@ var Tile = function(pos, val, puzzle){
             if(this.merging || target.merging || target.val !== this.val)
                 return false;
 
-            target.val += this.val;
-            target.merging = true;
-            this.puzzle.score += target.val;
-            this.puzzle.removeTile(this);
+			target.merging = true;
+			this.pos = target.pos;
+			this.merging = true;
             return true;
         }
 

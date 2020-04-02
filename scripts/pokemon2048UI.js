@@ -23,7 +23,7 @@ var pokemon2048UI=function(){
                 self.game.dir = mapped_dir;
                 do {
                 self.game.animate();
-                } while (self.game.hasMoved === true); 
+                } while (self.game.hasPossibleMoves === true); 
             }
             else if (event.which == 82) {
                 var answer = confirm("This will start a new game.");
@@ -37,7 +37,10 @@ var pokemon2048UI=function(){
                     window.close();	
                 }
             }
-            self.updateUI();
+            if (self.game.hasMoved){
+                self.updateUI();
+            }
+            self.game.hasMoved = false;
             setTimeout(() => {
                 self.game.checkGameState();
             },0);
@@ -88,7 +91,7 @@ var pokemon2048UI=function(){
             var cur_tile = self.game.getTile(cell_id);
             if (cur_tile !== undefined && cur_tile != null){
                 // console.info("Found a cell! ", cell_id);
-                $(this).text(cur_tile.val);
+                // $(this).text(cur_tile.val);
 
                 $(this).html("<img class='gif' id='gif" + cell_id + "' src='pokemon/Edited/" + cur_tile.val + ".gif'></img>");
 
