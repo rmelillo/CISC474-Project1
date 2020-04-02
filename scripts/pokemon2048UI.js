@@ -60,9 +60,10 @@ var pokemon2048UI=function(){
         $('#sound').on('click', function(){
             console.info("sound btn clicked");
             // for Testing
-            $('#gameboard').animate({left:'250px',
-            height:'+=150px',
-            width:'+=150px'});
+            // $('#gif1').animate({left:'244px'});
+            // $('#gif2').animate({left:'122px'});
+            $('#gif2').animate({height:'130px', width:'130px', margin:'-4px'}, 25);
+            $('#gif2').animate({height:'112px', width:'112px', margin:'4px'}, 25);
         });
 
         self.updateUI();
@@ -87,7 +88,7 @@ var pokemon2048UI=function(){
             var cur_tile = self.game.getTile(cell_id);
             if (cur_tile !== undefined && cur_tile != null){
                 // console.info("Found a cell! ", cell_id);
-                // $(this).text(cur_tile.val);
+                $(this).text(cur_tile.val);
 
                 $(this).html("<img class='gif' id='gif" + cell_id + "' src='pokemon/Edited/" + cur_tile.val + ".gif'></img>");
 

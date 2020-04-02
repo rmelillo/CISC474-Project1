@@ -72,14 +72,16 @@ var pokemon2048 = function(){
 		for(let tile of this.tiles)
 			moving = moving || tile.move(this.dir);
 
-		if(this.hasMoved && !moving){
+		// if(this.hasMoved && !moving){
+		if(!moving){
+			for(let tile of this.tiles)
+			tile.merging = false;
+
 			this.dir = 0;
 			this.generateTile();
 
-			for(let tile of this.tiles)
-				tile.merging = false;
 		} 
-		this.hasMoved = moving;
+		// this.hasMoved = moving;
 	}
 
 
@@ -90,7 +92,8 @@ var Tile = function(pos, val, puzzle){
     this.pos = pos;
     this.val = val;
     this.puzzle  = puzzle;
-    this.merging = false;
+	this.merging = false;
+	this.from = null;
 	
     this.getCol = () => Math.round(this.pos % 4);
     this.getRow = () => Math.floor(this.pos / 4);
@@ -114,7 +117,7 @@ var Tile = function(pos, val, puzzle){
             return true;
         }
 
-        this.pos += dir;
+		this.pos += dir;
         return true;
     }
 
