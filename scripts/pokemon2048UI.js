@@ -36,7 +36,7 @@ var pokemon2048UI=function(){
                 }
             }
             if (self.game.hasMoved){
-                setTimeout(function(){ self.updateUI(); }, 2000);
+                setTimeout(function(){ self.updateUI(); }, 290);
                 // self.updateUI();
             }
             self.game.hasMoved = false;
@@ -122,19 +122,27 @@ var pokemon2048UI=function(){
                 moving = moving || tile.move(self.game.dir);
                 self.game.hasMoved = self.game.hasMoved || moving;
             if(self.game.hasPossibleMoves && !moving){
-                
+                self.runMovements();
+                setTimeout(function(){
+                    self.mergeTiles();
+                    for(let tile of self.game.tiles){
+                        tile.merging = false;
+                    }
+                    self.game.dir = 0;
+        
+                    let positions = self.game.getOpenPositions();
+                    let pos       = positions[Math.floor(Math.random()*positions.length)];
+                    let val       = 2 + 2*Math.floor(Math.random()*1.11);
+                    self.game.generateTile(pos, val);
+                    $('#'+pos).html("<img class='gif' id='gif" + pos + "' src='pokemon/Edited/" + val + ".gif' style='width:30px; height:30px; margin:56px'></img>");
+                    $('#gif'+pos).animate({width:'112', height:'112', margin:'4px'}, 180)
+        
+                }, 120);
             } 
             self.game.hasPossibleMoves = moving;
         } while (self.game.hasPossibleMoves === true);
 
-        self.runMovements();
-        setTimeout(function(){self.mergeTiles()},0);
-        // self.mergeTiles();
-        for(let tile of self.game.tiles){
-            tile.merging = false;
-        }
-        self.game.dir = 0;
-        self.game.generateTile();
+
     }
 
     this.runMovements = function(){
@@ -158,7 +166,7 @@ var pokemon2048UI=function(){
     }
 
     this.mergeTiles = function(){
-        setTimeout(function(){
+        
             for (let i = 0; i < 16; i++){
                 pair = self.game.tiles.filter(x => x.pos === i);
                 if (pair.length>=2){
@@ -169,13 +177,13 @@ var pokemon2048UI=function(){
                     tile.merging = false;
                     
                         $('#'+tile.pos).html("<img class='gif' id='gif" + tile.pos + "' src='pokemon/Edited/" + tile.val + ".gif' ></img>");
-                        $('#gif' + tile.pos).animate({height:'130px', width:'130px', margin:'-4px'}, 100);
-                        $('#gif' + tile.pos).animate({height:'112px', width:'112px', margin:'4px'}, 100);
+                        $('#gif' + tile.pos).animate({height:'128px', width:'128px', margin:'-3px'}, 90);
+                        $('#gif' + tile.pos).animate({height:'112px', width:'112px', margin:'4px'}, 90);
                     }
                     
 
                 }
-            }, 120);
+                
 	}
 
     this.initialize();

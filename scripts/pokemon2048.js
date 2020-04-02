@@ -62,19 +62,25 @@ var pokemon2048 = function(){
 		this.dir      = 0;
 		this.score    = 0;
 		this.hasMoved = false;
-		this.generateTile();
-		this.generateTile();
+		this.generateTile(-1, -1);
+		this.generateTile(-1, -1);
     }
 	
 	// generates a new tile at random open position, value is 2 or 4
-    this.generateTile = function(){
-		let positions = this.getOpenPositions();
-		let pos       = positions[Math.floor(Math.random()*positions.length)];
-		let val       = 2 + 2*Math.floor(Math.random()*1.11);
+    this.generateTile = function(pos, val){
+		if(pos==-1){
+			let positions = this.getOpenPositions();
+			pos       = positions[Math.floor(Math.random()*positions.length)];
+			val       = 2 + 2*Math.floor(Math.random()*1.11);
+		}
 		this.tiles.push(new Tile(pos, val, this));
 	}
-	this.generateTile();
-    this.generateTile();
+	// this.generateTile = function(pos){
+	// 	let val       = 2 + 2*Math.floor(Math.random()*1.11);
+	// 	this.tiles.push(new Tile(pos, val, this));
+	// }
+	this.generateTile(-1, -1);
+    this.generateTile(-1, -1);
 	
 
 	// Has been moved to UI.js
