@@ -18,19 +18,20 @@ var pokemon2048 = function(){
 	this.removeTile       = tile => this.tiles.splice(this.tiles.indexOf(tile), 1);
 	this.winCondition     = () => this.tiles.some(x => x.val === 2048);
 	
+	// Moved to
 	//checks and merges mergible tiles at given positions
-	this.mergeTiles = function(){
-		for (let i = 0; i < 16; i++){
-			pair = this.tiles.filter(x => x.pos === i);
-			if (pair.length>=2){
-				this.removeTile(pair[1]);
-				tile = pair[0];
-				this.score += tile.val;
-				tile.val *= 2;
-				tile.merging = false;
-			}
-		}
-	}
+	// this.mergeTiles = function(){
+	// 	for (let i = 0; i < 16; i++){
+	// 		pair = this.tiles.filter(x => x.pos === i);
+	// 		if (pair.length>=2){
+	// 			this.removeTile(pair[1]);
+	// 			tile = pair[0];
+	// 			this.score += tile.val;
+	// 			tile.val *= 2;
+	// 			tile.merging = false;
+	// 		}
+	// 	}
+	// }
 	
     //check for moves remaining
 	this.validMoves = function(){
@@ -76,32 +77,34 @@ var pokemon2048 = function(){
     this.generateTile();
 	
 
+	// Has been moved to UI.js
+
 	// calculate & complete a move
-	this.animate = function(){
+	// this.animate = function(){
 
-		if(self.dir === 0)
-			return;
+	// 	if(self.dir === 0)
+	// 		return;
 
-		for(let tile of this.tiles){
-			tile.from = tile.pos;
-		}
+	// 	for(let tile of this.tiles){
+	// 		tile.from = tile.pos;
+	// 	}
 
-		let moving = false;
-		this.tiles.sort((x,y) => this.dir*(y.pos - x.pos));
-		for(let tile of this.tiles)
-			moving = moving || tile.move(this.dir);
-		this.hasMoved = this.hasMoved || moving;
-		if(this.hasPossibleMoves && !moving){
-		// if(!moving){
-			this.mergeTiles();
-			for(let tile of this.tiles){
-				tile.merging = false;
-			}
-			this.dir = 0;
-			this.generateTile();
-		} 
-		this.hasPossibleMoves = moving;
-	}
+	// 	let moving = false;
+	// 	this.tiles.sort((x,y) => this.dir*(y.pos - x.pos));
+	// 	for(let tile of this.tiles)
+	// 		moving = moving || tile.move(this.dir);
+	// 	this.hasMoved = this.hasMoved || moving;
+	// 	if(this.hasPossibleMoves && !moving){
+	// 	// if(!moving){
+	// 		this.mergeTiles();
+	// 		for(let tile of this.tiles){
+	// 			tile.merging = false;
+	// 		}
+	// 		this.dir = 0;
+	// 		this.generateTile();
+	// 	} 
+	// 	this.hasPossibleMoves = moving;
+	// }
 
 
 	
