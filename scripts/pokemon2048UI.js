@@ -59,6 +59,10 @@ var pokemon2048UI=function(){
         // Sound btn listener
         $('#sound').on('click', function(){
             console.info("sound btn clicked");
+            // for Testing
+            $('#gameboard').animate({left:'250px',
+            height:'+=150px',
+            width:'+=150px'});
         });
 
         self.updateUI();
@@ -85,12 +89,12 @@ var pokemon2048UI=function(){
                 // console.info("Found a cell! ", cell_id);
                 // $(this).text(cur_tile.val);
 
-                $(this).html("<img src='pokemon/Edited/" + cur_tile.val + ".gif'></img>");
+                $(this).html("<img class='gif' id='gif" + cell_id + "' src='pokemon/Edited/" + cur_tile.val + ".gif'></img>");
 
                 // TODO:: need to Replace with CSS functions.
             }
             else {
-                $(this).text("");
+                $(this).html("");
             }
 
         });
