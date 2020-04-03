@@ -41,6 +41,7 @@ var pokemon2048UI=function(){
         // key listener
         $('body').keydown(function(event){
             if (self.running == true) {
+                event.preventDefault();
                 return;
             }
             self.running = true;
