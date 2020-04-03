@@ -129,7 +129,7 @@ var pokemon2048UI=function(){
         self.updateUI();
 
         //ryan stuff
-        $('#upload').on('change', this.something);
+        $('#upload2').on('change', this.something);
         $('#upload4').on('change', this.something);
         $('#upload8').on('change', this.something);
         $('#upload16').on('change', this.something);
@@ -173,8 +173,8 @@ var pokemon2048UI=function(){
                     +self.calculateLeftMargin(tile.pos)+"px'></img>");
             }
             else {
-                $('#tileboard').append("<img class='gif' id='gif" + tile.pos + "' src='pokemon/Edited/" + tile.val + 
-                ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(tile.pos)+"px; left:"
+                $('#tileboard').append("<img class='gif' id='gif" + tile.pos + "'src='"+ imgUrls[tile.val] + 
+                "' style='width:112px; height:112px; top:"+self.calculateTopMargin(tile.pos)+"px; left:"
                 +self.calculateLeftMargin(tile.pos)+"px'></img>");
             }
         }
@@ -226,8 +226,8 @@ var pokemon2048UI=function(){
                 +self.calculateLeftMargin(pos)+"px'></img>");
         }
         else {
-            $('#tileboard').append("<img class='gif' id='gif" + pos + "' src='pokemon/Edited/" + val + 
-                ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
+            $('#tileboard').append("<img class='gif' id='gif" + pos + "'src='"+ imgUrls[val] + 
+            "' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
                 +self.calculateLeftMargin(pos)+"px'></img>");
         }
         $('#gif'+pos).animate({left:'+=56px', top:'+=56px'}, 0);
@@ -235,15 +235,17 @@ var pokemon2048UI=function(){
     }
 
     this.something = function(){
-        var btn=document.getElementById('upload');
+
+        var btn=document.getElementById('upload'+imgNum);
         if (btn.files && btn.files[0]){
             var img=document.getElementById('myImg'+imgNum);
             var url=URL.createObjectURL(btn.files[0]);
             var className='.c'+imgNum;
             img.src=url;
             $(className).attr('src',url);
-            console.log(imgUrls[imgNum])
             imgUrls[imgNum] = url;
+            //console.log(imgUrls[imgNum]);
+            btn.value='';
         }
         imgNum*=2;
     }
@@ -293,8 +295,8 @@ var pokemon2048UI=function(){
                         +self.calculateLeftMargin(i)+"px'></img>");
                 }
                 else {
-                    $('#tileboard').append("<img class='gif' id='gif" + i + "' src='pokemon/Edited/" + tile.val + 
-                        ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
+                    $('#tileboard').append("<img class='gif' id='gif" + i + "'src='"+ imgUrls[tile.val] + 
+                    "' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
                         +self.calculateLeftMargin(i)+"px'></img>");
                 }
                 $('#gif' + tile.pos).animate({height:'128px', width:'128px', left:'+=-8px', top:'+=-8px'}, 90);
