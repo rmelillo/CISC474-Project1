@@ -2,10 +2,12 @@
 <html>
     <head>
         <title>2048</title>
+        <link rel="icon" href="favicon.ico">
         <link rel="stylesheet" href="css/2048.css">
         <script   src="http://code.jquery.com/jquery-3.4.1.min.js"   
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
-        <script src='2048.js'></script>
+        <script src='scripts/pokemon2048.js'></script>
+        <script src='scripts/pokemon2048UI.js'></script>
     </head>
     <body>
         <div id='fixbox'>
@@ -16,23 +18,24 @@
             <div id='control'>
                 
                 <div id='scoreContainer'>
-                    <div id='Score'>Score: <div class='OutputT' id='scoreCount'>0</div>
+                    <div id='Score' class='S_type'>Score <div class='OutputT' id='scoreCount'>0</div>
                     </div>
-                    <div id='Best'>Best:<div class='OutputT' id='bestCount'>0</div>
+                    <div id='Best' class='S_type'>Best<div class='OutputT' id='bestCount'>0</div>
                     </div>
                 </div>
                 <div id='newG'>
-                    <button id='Restart' class='butStyle'>New Game</button>
-                    <button id='changeV' class='butStyle'>Change Version</button>
-                    <button id='sound' class='butStyle'>music</button>
+                    <p><button id='Restart' class='butStyle'>New Game</button>: restart the new <strong>2048</strong></p>
+                    <p><button id='changeV' class='butStyle'>Change Version</button>: update the image and background</p>
+                    <p><button id='sound' class='butStyle'>music</button>: open/close music</p>
                 </div>
                 
             </div>
             <div id='mainboard'>
                 <div id='gameboard'>
+                    <div id=image></div>
                     <div class='row'>
                         <div class='cell' id='0'></div>
-                        <div class='cell' id='1'></div>
+                        <div class='cell' id='1'> </div>
                         <div class='cell' id='2'></div>
                         <div class='cell' id='3'></div>
                     </div>
@@ -56,7 +59,17 @@
                     </div>
                 </div>
             </div>
-            <div id='aboutus'></div>
+            <div id='aboutus'>
+                <p><strong> Member</strong></p>
+                <p>Yufan Wang, Kim Jin, Ryan Melillo, Jeremy redrup, Vincent Conte</p>
+            </div>
         </div>
+
+        <script type="text/javascript">
+            $(function(){
+                var game2048 = new pokemon2048UI();
+            });
+        </script>
+
     </body>
 </html>

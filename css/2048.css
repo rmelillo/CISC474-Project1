@@ -21,7 +21,7 @@ body {
 #board {
 	position: relative;
 	margin:0 auto;
-	width:65%;
+	width:800px;;
 	height: 100%;
 	background-color: #F5ECB3;
 	border: 5px solid blue;
@@ -33,23 +33,23 @@ body {
 	/*width:500px;
 	height:500px;
 	*/
-	width:80%;
+	text-align:center;
+	width:100%;
 	height:600px;
 	position:relative;
-	border: 5px solid green;
 	z-index: 1;
 }
 
 #gameboard {
-	left:15%;
+	display:inline-block;
 	top:30px;
 	width: 500px;
 	height: 500px;
 	padding: 15px;
 	cursor: default;
 	border: 3px solid orange;
-	position:absolute;
-	background: #EAA1A1;
+	position: relative;
+	background: #89DDEF;
 	border-radius:10px;
 }
 /*
@@ -79,27 +79,34 @@ body {
 	margin-left:11.5px;
 	float: left;
 	border-radius: 5px;
-	background: rgba(241, 238, 235, 0.35);
+	background: rgba(241, 235, 230, 0.35);
 }
 
 	.cell:last-child {
 	  margin-right: 0px; 
 	}
 
+
+.movecell {
+	width:112px;
+	height:112px;
+
+}
+
 #name {
 	margin:0 auto;
 	font-weight: bold;
 	text-align: center;
-	font-size: 70px;
+	font-size: 100px;
 	width: 100%;
-	height: 100px;
+	height: 150px;
 }
 
 #control {
 	margin: 0 auto;
 	top: 0px;
-	width:80%;
-	height:300px;
+	widows: 100%;
+	height:250px;
 	position:relative;
 	border:5px solid pink;
 }
@@ -107,25 +114,48 @@ body {
 #scoreContainer {
 	margin:0 auto;
 	right: 0;
-	width: 30%;
-	height: 70px;
+	width: 310px;
+	height: 160px;
 	position: absolute;
 	font-size:30px;
-	border: solid 3px green;
+	display:flex;
 }
 
-#newG {
-	border: solid 3px green;
-	margin:0 auto;
-	top:0;
-	width:30%;
-	height: 30px;
-	position: absolute;
+.S_type {
+	border-radius:5px;
+	background-color: #DD7A12;
+	margin:3px;
+	width:150px;
+	height:150px;
+	text-align:center;
+}
+
+
+
+.butStyle {
+	background-color: #DD7A12;
+	border-radius: 10px;
+	border: double 3px #cccccc;
+	color: #eeeeee;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+	cursor: pointer;
+	width: 110px;
+	height: 40px;
+	text-align: center;
+	font-size: 10px;
+	
 
 }
 
 .OutputT {
 	border: solid 1px black;
+	width:100px;
+	height: 100px;
+	text-align: center;
+	display: inline-block;
 
 }
 
@@ -135,8 +165,10 @@ body {
 	width:100%;
 	height: 400px;
 	position:relative;
-	border: 3px solid yellow;
+	text-align: center;
 }
+
+
 
 
 
