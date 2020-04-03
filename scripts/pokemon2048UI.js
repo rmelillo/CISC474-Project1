@@ -1,7 +1,6 @@
 var imgUrls = new Array(1025);
 for(i=2; i<1025; i=i*2){
     imgUrls[i]='pokemon/Edited/' + i + '.gif';
-    console.log(imgUrls[i]);
 }
 
 var imgNum = 2;
@@ -12,7 +11,6 @@ var pokemon2048UI=function(){
     this.running = false;
 
 
-    //console.log(this.imgUrls[2]);
 
     this.initialize = function(){
         
@@ -93,7 +91,7 @@ var pokemon2048UI=function(){
         self.updateUI();
 
         //ryan stuff
-        $('#upload').on('change', this.something);
+        $('#upload2').on('change', this.something);
         $('#upload4').on('change', this.something);
         $('#upload8').on('change', this.something);
         $('#upload16').on('change', this.something);
@@ -171,7 +169,7 @@ var pokemon2048UI=function(){
         let pos       = positions[Math.floor(Math.random()*positions.length)];
         let val       = 2 + 2*Math.floor(Math.random()*1.11);
         self.game.generateTile(pos, val);
-
+        //console.log('generate '+pos+":"+val)
 
         //Ryan changing code
         $('#tileboard').append("<img class='gif c"+val+"' id='gif" + pos + "'src='"+ imgUrls[val] + 
@@ -185,15 +183,16 @@ var pokemon2048UI=function(){
 
     this.something = function(){
 
-        var btn=document.getElementById('upload');
+        var btn=document.getElementById('upload'+imgNum);
         if (btn.files && btn.files[0]){
             var img=document.getElementById('myImg'+imgNum);
             var url=URL.createObjectURL(btn.files[0]);
             var className='.c'+imgNum;
             img.src=url;
             $(className).attr('src',url);
-            console.log(imgUrls[imgNum])
             imgUrls[imgNum] = url;
+            //console.log(imgUrls[imgNum]);
+            btn.value='';
         }
         imgNum*=2;
     }
@@ -243,8 +242,8 @@ var pokemon2048UI=function(){
 
 
                 
-                $('#tileboard').append("<img class='gif' id='gif" + i + "' src='pokemon/Edited/" + tile.val + 
-                ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
+                $('#tileboard').append("<img class='gif' id='gif" + i + "'src='"+ imgUrls[tile.val] + 
+                "' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
                 +self.calculateLeftMargin(i)+"px'></img>");
                 $('#gif' + tile.pos).animate({height:'128px', width:'128px', left:'+=-8px', top:'+=-8px'}, 90);
                 $('#gif' + tile.pos).animate({height:'112px', width:'112px', left:'+=8px', top:'+=8px'}, 90);
