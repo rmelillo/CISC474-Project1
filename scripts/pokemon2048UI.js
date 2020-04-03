@@ -2,6 +2,8 @@ var pokemon2048UI=function(){
     var self = this;
     this.game = undefined;
     this.running = false;
+    this.version = 1;
+
 
     this.initialize = function(){
 
@@ -196,7 +198,8 @@ var pokemon2048UI=function(){
     this.mergeTiles = function(){
         for(let tile of self.game.tiles){
             if(tile.merging == true) {
-                $('#gif'+tile.pos).remove();
+                setTimeout(function(){$('#gif'+tile.pos).remove();}, 180);
+                // $('#gif'+tile.pos).remove();
             }
         }
         for (let i = 0; i < 16; i++){
@@ -210,17 +213,17 @@ var pokemon2048UI=function(){
                 tile.merging = false;
 
                 if (self.version === 1) {
-                    $('#tileboard').append("<img class='gif' id='gif" + pos + "' src='pokemon/Number/" + val + 
-                        ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
-                        +self.calculateLeftMargin(pos)+"px'></img>");
+                    $('#tileboard').append("<img class='gif' id='gif" + i + "' src='pokemon/Number/" + tile.val + 
+                        ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
+                        +self.calculateLeftMargin(i)+"px'></img>");
                 }
                 else {
-                    $('#titleboard').append("<img class='gif' id=gif" + pos + " ' src='pokemon/Edited/" + val + 
-                        ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
-                        +self.calculateLeftMargin(pos)+"px'></img>");
+                    $('#tileboard').append("<img class='gif' id='gif" + i + "' src='pokemon/Edited/" + tile.val + 
+                        ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
+                        +self.calculateLeftMargin(i)+"px'></img>");
                 }
-                $('#gif'+pos).animate({left:'+=56px', top:'+=56px'}, 0);
-                $('#gif'+pos).animate({width:'112px', height:'112px', left:'+=-56px', top:'+=-56px'}, 180);
+                $('#gif' + tile.pos).animate({height:'128px', width:'128px', left:'+=-8px', top:'+=-8px'}, 90);
+                $('#gif' + tile.pos).animate({height:'112px', width:'112px', left:'+=8px', top:'+=8px'}, 90);
             }
             
         }
