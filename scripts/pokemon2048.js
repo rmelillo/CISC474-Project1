@@ -4,13 +4,12 @@ var pokemon2048 = function(){
     /*the following alert window is just to instruct the user on the N and Q functionality, but it should probably be in the 
 	html file.  Since I'm not doing that I figured I'd leave it to whoever is, and we can just delete it from here then.*/
 	// TODO:: implement showing instructions
-	//alert("Welcome to a game closely resembling 2048! At any time press N for a new game or Q to quit.");
+	alert("Welcome to a game closely resembling 2048! At any time press N for a new game or Q to quit.");
 
 	this.tiles    = [];
 	this.dir      = 0;
 	this.score    = 0;
 	this.hasMoved = false;
-	this.hasPossibleMoves = false;
 	this.validPositions = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
     this.getOpenPositions = () => this.validPositions.filter(i => this.tiles.map(x => x.pos).indexOf(i) === -1);
@@ -47,32 +46,70 @@ var pokemon2048 = function(){
 		this.dir      = 0;
 		this.score    = 0;
 		this.hasMoved = false;
+		this.generateTile();
+		this.generateTile();
     }
 	
 	// generates a new tile at random open position, value is 2 or 4
-    this.generateTile = function(pos, val){
-		if(pos==-1){
-			let positions = this.getOpenPositions();
-			pos       = positions[Math.floor(Math.random()*positions.length)];
-			val       = 2 + 2*Math.floor(Math.random()*1.11);
-		}
+    this.generateTile = function(){
+		let positions = this.getOpenPositions();
+		let pos       = positions[Math.floor(Math.random()*positions.length)];
+		let val       = 2 + 2*Math.floor(Math.random()*1.11);
 		this.tiles.push(new Tile(pos, val, this));
 	}
+	this.generateTile();
+    this.generateTile();
+	
+
+	// calculate & complete a move
+	this.animate = function(){
+
+		if(self.dir === 0)
+			return;
+
+		let moving = false;
+		this.tiles.sort((x,y) => this.dir*(y.pos - x.pos));
+		for(let tile of this.tiles)
+			moving = moving || tile.move(this.dir);
+
+		if(this.hasMoved && !moving){
+			this.dir = 0;
+			this.generateTile();
+
+			for(let tile of this.tiles)
+				tile.merging = false;
+		} 
+		this.hasMoved = moving;
+	}
+
 
 	
 }
 
 var Tile = function(pos, val, puzzle){
+	function sound(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+        this.play = function(){
+          this.sound.play();
+        }
+        this.stop = function(){
+          this.sound.pause();
+        }
+      }
     this.pos = pos;
     this.val = val;
-    this.puzzle  = puzzle;
-	this.merging = false;
-	this.from = null;
+    this.puzzle  = puzzle; 
+    this.merging = false;
 	
     this.getCol = () => Math.round(this.pos % 4);
     this.getRow = () => Math.floor(this.pos / 4);
 
-	// function for 1-unit length move
+	
     this.move = function(dir){
         let col = this.getCol() + (1 - 2*(dir < 0))*Math.abs(dir)%4;
         let row = this.getRow() + (1 - 2*(dir < 0))*Math.floor(Math.abs(dir)/4);
@@ -84,14 +121,28 @@ var Tile = function(pos, val, puzzle){
             if(this.merging || target.merging || target.val !== this.val)
                 return false;
 
-			target.merging = true;
-			this.pos = target.pos;
-			this.merging = true;
+            target.val += this.val;
+            target.merging = true;
+            this.puzzle.score += target.val;
+            this.puzzle.removeTile(this);
             return true;
         }
 
-		this.pos += dir;
+        this.pos += dir;
         return true;
-    }
+	}
+	var sound4;
+	var sound16;
+	var ding;
+	sound4 = new sound("sounds/4.wav");
+	sound16 = new sound("sounds/8.wav");
+	ding = new sound ("sounds/ding.mp3");
+	if(cur_tile = 16){
+		ding.play();
+	} else if (cur_tile = 4){
+		ding.play();
+	}else {
+		ding.play();
+			}                
+};
 
-}
