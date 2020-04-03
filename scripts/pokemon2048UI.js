@@ -26,6 +26,7 @@ var pokemon2048UI=function(){
     this.game = undefined;
     this.running = false;
     this.version = 1;
+    this.music = 0;//1 for play 2 for stop
 
 
     this.initialize = function(){
@@ -114,10 +115,20 @@ var pokemon2048UI=function(){
 
         // Sound btn listener
         $('#sound').on('click', function(){
-            console.info("sound btn clicked");
-            var themeSong;
-            themeSong = new sound("sounds/pokerap.mp3")
-            themeSong.play();
+            if (self.music === 0) {
+                console.info("sound btn clicked");
+                var themeSong;
+                themeSong = new sound("sounds/pokerap.mp3")
+                themeSong.play();
+                self.music = 1;
+            }
+            else if(self.music === 1) {
+                themeSong.pause();
+                self.music = 2;
+            }
+            else{
+                self.music = 1;
+            }
         });
 
         self.generateNewTile();
