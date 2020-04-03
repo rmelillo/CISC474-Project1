@@ -13,12 +13,6 @@ function sound(src) {
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
     document.body.appendChild(this.sound);
-    this.play = function(){
-      this.sound.play();
-    }
-    this.stop = function(){
-      this.sound.pause();
-    }
   }
   
 var pokemon2048UI=function(){
@@ -33,6 +27,7 @@ var pokemon2048UI=function(){
 
         self.game = new pokemon2048();
         self.version = 1;
+        var themeSong = new sound("sounds/pokerap.mp3");
 
         var map_keyevent_to_dir = {
             37: -1, // Left
@@ -115,20 +110,12 @@ var pokemon2048UI=function(){
 
         // Sound btn listener
         $('#sound').on('click', function(){
-            if (self.music === 0) {
-                console.info("sound btn clicked");
-                var themeSong;
-                themeSong = new sound("sounds/pokerap.mp3")
-                themeSong.play();
-                self.music = 1;
-            }
-            else if(self.music === 1) {
-                themeSong.pause();
-                self.music = 2;
-            }
-            else{
-                self.music = 1;
-            }
+            themeSong.sound.play();
+        });
+
+        // Sound btn listener
+        $('#soundS').on('click', function(){
+            themeSong.sound.pause();
         });
 
         self.generateNewTile();
