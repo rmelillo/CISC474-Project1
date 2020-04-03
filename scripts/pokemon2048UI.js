@@ -201,13 +201,13 @@ var pokemon2048UI=function(){
     // takes position of tile and returns relative pixel position to the tileboard
     this.calculateTopMargin = function(pos){
         row = Math.floor(pos / 4);
-        return row*122 + 5;
+        return row*122 + 10;
     }
 
     // takes position of tile and returns relative pixel position to the tileboard
     this.calculateLeftMargin = function(pos){
         col = Math.round(pos % 4);
-        return col*122 + 5;
+        return col*122 + 11;
     }
 
     this.initialize();

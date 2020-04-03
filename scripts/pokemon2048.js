@@ -4,7 +4,7 @@ var pokemon2048 = function(){
     /*the following alert window is just to instruct the user on the N and Q functionality, but it should probably be in the 
 	html file.  Since I'm not doing that I figured I'd leave it to whoever is, and we can just delete it from here then.*/
 	// TODO:: implement showing instructions
-	alert("Welcome to a game closely resembling 2048! At any time press N for a new game or Q to quit.");
+	//alert("Welcome to a game closely resembling 2048! At any time press N for a new game or Q to quit.");
 
 	this.tiles    = [];
 	this.dir      = 0;
