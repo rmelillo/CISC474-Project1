@@ -20,6 +20,7 @@ var pokemon2048UI=function(){
         // key listener
         $('body').keydown(function(event){
             if (self.running == true) {
+                event.preventDefault();
                 return;
             }
             self.running = true;
@@ -70,15 +71,15 @@ var pokemon2048UI=function(){
         $('#changeV').on('click', function(){
             if(self.version === 1){
                 self.version = 2;
-                alert("version is: "+self.version);
+                // alert("version is: "+self.version);
             }
             else{
                 self.version = 1;
-                alert("version is: "+self.version);
+                // alert("version is: "+self.version);
             }
             self.game.restart();
             $('#tileboard').html("");
-
+            
             self.generateNewTile();
             self.generateNewTile();
             self.updateUI();
@@ -99,13 +100,12 @@ var pokemon2048UI=function(){
     // Updates UI infos
     this.updateUI = function(){
 
+        // Use for Debuging
         // $(".cell").each(function(){
         //     var cell_id = parseInt($(this).attr("id"));         
         //     var cur_tile = self.game.getTile(cell_id);
         //     if (cur_tile !== undefined && cur_tile != null){
         //         $(this).text(cur_tile.val);
-
-        //         // TODO:: need to Replace with CSS functions.
         //     }
         //     else {
         //         $(this).text("");
@@ -163,10 +163,9 @@ var pokemon2048UI=function(){
                 +self.calculateLeftMargin(pos)+"px'></img>");
         }
         else {
-            alert("reach here");
-            $('#titleboard').append("<img class='gif' id=gif" + pos + " ' src='pokemon/Edited/" + val + 
-                ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
-                +self.calculateLeftMargin(pos)+"px'></img>");
+            $('#tileboard').append("<img class='gif' id='gif" + pos + "' src='pokemon/Edited/" + val + 
+            ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
+            +self.calculateLeftMargin(pos)+"px'></img>");
         }
         $('#gif'+pos).animate({left:'+=56px', top:'+=56px'}, 0);
         $('#gif'+pos).animate({width:'112px', height:'112px', left:'+=-56px', top:'+=-56px'}, 180);
@@ -198,8 +197,8 @@ var pokemon2048UI=function(){
     this.mergeTiles = function(){
         for(let tile of self.game.tiles){
             if(tile.merging == true) {
-                setTimeout(function(){$('#gif'+tile.pos).remove();}, 180);
-                // $('#gif'+tile.pos).remove();
+                // setTimeout(function(){$('#gif'+tile.pos).remove();}, 180);
+                $('#gif'+tile.pos).remove();
             }
         }
         for (let i = 0; i < 16; i++){
