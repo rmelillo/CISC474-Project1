@@ -2,68 +2,202 @@
 <html>
     <head>
         <title>2048</title>
+        <link rel="icon" href="favicon.ico">
         <link rel="stylesheet" href="css/2048.css">
         <script   src="http://code.jquery.com/jquery-3.4.1.min.js"   
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
-        <script src='2048.js'></script>
-    </head>
-    <body>
+        <script src='scripts/pokemon2048.js'></script>
+        <script src='scripts/pokemon2048UI.js'></script>
+
+        <script language="javascript">
+
+            function imageSwitcher(imgNumber){
+                if(imgNumber==0){
+                    document.getElementById("img4").style.display="none";
+                    document.getElementById("img8").style.display="none";
+                    document.getElementById("img16").style.display="none";
+                    document.getElementById("img32").style.display="none";
+                    document.getElementById("img64").style.display="none";
+                    document.getElementById("img128").style.display="none";
+                    document.getElementById("img256").style.display="none";
+                    document.getElementById("img512").style.display="none";
+                    document.getElementById("img1024").style.display="none";
+                    document.getElementById("img2048").style.display="none";
+                }
+
+                if(imgNumber==4){
+                    document.getElementById("img2").style.display="none";
+                    document.getElementById("img4").style.display="block";
+                }
+                if(imgNumber==8){
+                    document.getElementById("img4").style.display="none";
+                    document.getElementById("img8").style.display="block";
+                }
+                if(imgNumber==16){
+                    document.getElementById("img8").style.display="none";
+                    document.getElementById("img16").style.display="block";
+                }
+                if(imgNumber==32){
+                    document.getElementById("img16").style.display="none";
+                    document.getElementById("img32").style.display="block";
+                }
+                if(imgNumber==64){
+                    document.getElementById("img32").style.display="none";
+                    document.getElementById("img64").style.display="block";
+                }
+                if(imgNumber==128){
+                    document.getElementById("img64").style.display="none";
+                    document.getElementById("img128").style.display="block";
+                }
+                if(imgNumber==256){
+                    document.getElementById("img128").style.display="none";
+                    document.getElementById("img256").style.display="block";
+                }
+                if(imgNumber==512){
+                    document.getElementById("img256").style.display="none";
+                    document.getElementById("img512").style.display="block";
+                }
+                if(imgNumber==1024){
+                    document.getElementById("img512").style.display="none";
+                    document.getElementById("img1024").style.display="block";
+                }
+                if(imgNumber==2048){
+                    document.getElementById("img1024").style.display="none";
+                    document.getElementById("img2048").style.display="block";
+                }
         
-        <div id='fixbox'>
- <!--  For multiple file select, if needed
+
+            }
+        </script>
+
+        <script language="javascript">
+            function on() {
+                document.getElementById("overlayupload").style.display = "block";
+            }
+
+            function off(){
+                document.getElementById("overlayupload").style.display = "none";
+            }
+        </script>
+    </head>
 
 
-    NOTES:
-    data[2,4,8,16...] or just 2^i
-    results[]
-    tex = add image 2^i
-    results.push once they are sure
-               <form id="post-form" class="post-form" method="post">
-                <label for="files">Select multiple files: </label>
-                <input id="files" type="file" multiple/>
-                <output id="result" />
-                </form> -->
+    <body onload= "imageSwitcher(0);">
 
-             <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '2'" height=200 width=100>
-            <!--
-            <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '8'" height=200 width=100>
-            
-            <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '16'" height=200 width=100>
-            
-            <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '32'" height=200 width=100>
-            
-            <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '64'" height=200 width=100>
-            
-            <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '128'" height=200 width=100>
-            
-            <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '256'" height=200 width=100>
-            
-            <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '512'" height=200 width=100>
-            
-            <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '1024'" height=200 width=100>
-            
-            <input type='file' />
-            <br>
-            <img id="myImg" src="#" alt="Your Image for '2048'" height=200 width=100> -->
-    
+        <div id="overlayupload" class="overlay">
+
+            <div class="overlay-content">
+                <div id="img2">
+                    <a>
+                    <input type='file' id='upload' class="a"/>
+                    <br>
+                    <img id="myImg2" alt= "Choose Image for '2'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm2" class='butStyle' onclick="imageSwitcher(4)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img4">
+                    <a>
+                    <input type='file' id='upload4' class="a"/>
+                    <br>
+                    <img id="myImg4" alt= "Choose Image for '4'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm4" class='butStyle' onclick="imageSwitcher(8)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img8">
+                    <a>
+                    <input type='file' id='upload8' class="a" />
+                    <br>
+                    <img id="myImg8" alt= "Choose Image for '8'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm8" class='butStyle' onclick="imageSwitcher(16)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img16">
+                    <a>
+                    <input type='file' id='upload16' class="a" />
+                    <br>
+                    <img id="myImg16" alt= "Choose Image for '16'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm16" class='butStyle' onclick="imageSwitcher(32)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img32">
+                    <a>
+                    <input type='file' id='upload32' class="a" />
+                    <br>
+                    <img id="myImg32" alt= "Choose Image for '32'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm32" class='butStyle' onclick="imageSwitcher(64)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img64">
+                    <a>
+                    <input type='file' id='upload64' class="a" />
+                    <br>
+                    <img id="myImg64" alt= "Choose Image for '64'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm64" class='butStyle' onclick="imageSwitcher(128)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img128">
+                    <a>
+                    <input type='file' id='upload128' class="a" />
+                    <br>
+                    <img id="myImg128" alt= "Choose Image for '128'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm128" class='butStyle' onclick="imageSwitcher(256)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img256">
+                    <a>
+                    <input type='file' id='upload256' class="a" />
+                    <br>
+                    <img id="myImg256" alt= "Choose Image for '256'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm256" class='butStyle' onclick="imageSwitcher(512)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img512">
+                    <a>
+                    <input type='file' id='upload512' class="a" />
+                    <br>
+                    <img id="myImg512" alt= "Choose Image for '512'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm512" class='butStyle' onclick="imageSwitcher(1024)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img1024">
+                    <a>
+                    <input type='file' id='upload1024' class="a" />
+                    <br>
+                    <img id="myImg1024" alt= "Choose Image for '1024'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm1024" class='butStyle' onclick="imageSwitcher(2048)">Confirm Image</button>
+                </a>
+                </div>
+
+                <div id="img2048">
+                    <a>
+                    <input type='file' id='upload2048' class="a" />
+                    <br>
+                    <img id="myImg2048" alt= "Choose Image for '2048'" src="#" height=125 width=125>
+                    <br>
+                    <button id="confirm2048" class='butStyle' onclick="imageSwitcher(2); off()">Confirm Image</button>
+                </a>
+                </div>
+   
+              </div>
         </div>
 
 
@@ -79,40 +213,50 @@
                 </div>
                 <div id='newG'>
                     <button id='Restart' class='butStyle'>New Game</button>
-                    <button id='changeV' class='butStyle'>Change Version</button>
+                    <button id='changeV' class='butStyle' onclick="on()">Upload Custom Images</button>
                     <button id='sound' class='butStyle'>music</button>
                 </div>
                 
             </div>
             <div id='mainboard'>
+                <div id='tileboard'></div>
                 <div id='gameboard'>
                     <div class='row'>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
+                        <div class='cell' id='0'></div>
+                        <div class='cell' id='1'> </div>
+                        <div class='cell' id='2'></div>
+                        <div class='cell' id='3'></div>
                     </div>
                     <div class='row'>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
+                        <div class='cell' id='4'></div>
+                        <div class='cell' id='5'></div>
+                        <div class='cell' id='6'></div>
+                        <div class='cell' id='7'></div>
                     </div>
                     <div class='row'>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
+                        <div class='cell' id='8'></div>
+                        <div class='cell' id='9'></div>
+                        <div class='cell' id='10'></div>
+                        <div class='cell' id='11'></div>
+
+                        
                     </div>
                     <div class='row'>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
-                        <div class='cell'></div>
+                        <div class='cell' id='12'></div>
+                        <div class='cell' id='13'></div>
+                        <div class='cell' id='14'></div>
+                        <div class='cell' id='15'></div>
                     </div>
                 </div>
             </div>
             <div id='aboutus'></div>
         </div>
+
+        <script type="text/javascript">
+            $(function(){
+                var game2048 = new pokemon2048UI();
+            });
+        </script>
+
     </body>
 </html>
