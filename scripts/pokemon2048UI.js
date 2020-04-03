@@ -20,7 +20,7 @@ var pokemon2048UI=function(){
     this.game = undefined;
     this.running = false;
     this.version = 1;
-    this.music = 0;//1 for play 2 for stop
+    
 
 
     this.initialize = function(){
@@ -28,6 +28,8 @@ var pokemon2048UI=function(){
         self.game = new pokemon2048();
         self.version = 1;
         var themeSong = new sound("sounds/pokerap.mp3");
+        var movesound = new sound("sounds/ding.mp3");
+        var startsound = new sound("sounds/start.wav");
 
         var map_keyevent_to_dir = {
             37: -1, // Left
@@ -45,6 +47,7 @@ var pokemon2048UI=function(){
             
             var mapped_dir = map_keyevent_to_dir[event.which];
             if (mapped_dir !== undefined) {
+                movesound.sound.play();
                 event.preventDefault();
                 self.game.dir = mapped_dir;
                 self.animate();
@@ -79,6 +82,8 @@ var pokemon2048UI=function(){
         $('#Restart').on('click', function(){
             self.game.restart();
             $('#tileboard').html("");
+
+            startsound.sound.play();
             
             self.generateNewTile();
             self.generateNewTile();
@@ -229,7 +234,6 @@ var pokemon2048UI=function(){
     }
 
     this.something = function(){
-
         var btn=document.getElementById('upload');
         if (btn.files && btn.files[0]){
             var img=document.getElementById('myImg'+imgNum);
@@ -245,7 +249,7 @@ var pokemon2048UI=function(){
 
     // Simulates movements of tiles
     this.runMovements = function(){
-        
+        //movesound.sound.play();
         for (let tile of self.game.tiles){
             diff = tile.pos - tile.from;
             if (diff == 0) {
