@@ -77,12 +77,15 @@ var pokemon2048UI=function(){
                 self.version = 1;
                 // alert("version is: "+self.version);
             }
-            self.game.restart();
-            $('#tileboard').html("");
+            // self.game.restart();
+            // $('#tileboard').html("");
+
             
-            self.generateNewTile();
-            self.generateNewTile();
-            self.updateUI();
+            // self.generateNewTile();
+            // self.generateNewTile();
+            // self.updateUI();
+
+            self.updateTileboard();
             
         });
 
@@ -115,6 +118,24 @@ var pokemon2048UI=function(){
 
         $('#scoreCount').text(self.game.score);
         $('#bestCount').text(Math.max(self.game.score, $('#bestCount').text()));
+    }
+
+    // Updates the tileboard based on the current version number
+    this.updateTileboard = function(){
+        $('#tileboard').html("");
+        for(let tile of self.game.tiles){
+            if (self.version === 1) {
+                $('#tileboard').append("<img class='gif' id='gif" + tile.pos + "' src='pokemon/Number/" + tile.val + 
+                    ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(tile.pos)+"px; left:"
+                    +self.calculateLeftMargin(tile.pos)+"px'></img>");
+            }
+            else {
+                $('#tileboard').append("<img class='gif' id='gif" + tile.pos + "' src='pokemon/Edited/" + tile.val + 
+                ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(tile.pos)+"px; left:"
+                +self.calculateLeftMargin(tile.pos)+"px'></img>");
+            }
+        }
+
     }
 
     // calculate & complete a move
