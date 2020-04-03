@@ -1,12 +1,33 @@
-<<<<<<< HEAD
+var imgUrls = new Array(1025);
+for(i=2; i<1025; i=i*2){
+    imgUrls[i]='pokemon/Edited/' + i + '.gif';
+    console.log(imgUrls[i]);
+}
+
+var imgNum = 2;
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+  }
+  
 var pokemon2048UI=function(){
     var self = this;
     this.game = undefined;
     this.running = false;
+    this.version = 1;
+    this.music = 0;//1 for play 2 for stop
+
 
     this.initialize = function(){
 
         self.game = new pokemon2048();
+        self.version = 1;
+        var themeSong = new sound("sounds/pokerap.mp3");
 
         var map_keyevent_to_dir = {
             37: -1, // Left
@@ -64,18 +85,54 @@ var pokemon2048UI=function(){
             self.updateUI();
         });
 
-        // ChangeV btn listener
+        //change version btn listener
         $('#changeV').on('click', function(){
+            if(self.version === 1){
+                self.version = 2;
+                // alert("version is: "+self.version);
+            }
+            else{
+                self.version = 1;
+                // alert("version is: "+self.version);
+            }
+            // self.game.restart();
+            // $('#tileboard').html("");
+
+            
+            // self.generateNewTile();
+            // self.generateNewTile();
+            // self.updateUI();
+
+            self.updateTileboard();
+
+            
         });
 
         // Sound btn listener
         $('#sound').on('click', function(){
+            themeSong.sound.play();
+        });
+
+        // Sound btn listener
+        $('#soundS').on('click', function(){
+            themeSong.sound.pause();
         });
 
         self.generateNewTile();
         self.generateNewTile();
         self.updateUI();
 
+        //ryan stuff
+        $('#upload').on('change', this.something);
+        $('#upload4').on('change', this.something);
+        $('#upload8').on('change', this.something);
+        $('#upload16').on('change', this.something);
+        $('#upload64').on('change', this.something);
+        $('#upload128').on('change', this.something);
+        $('#upload256').on('change', this.something);
+        $('#upload512').on('change', this.something);
+        $('#upload1024').on('change', this.something);
+        $('#upload2048').on('change', this.something);
     };
 
 
@@ -100,16 +157,32 @@ var pokemon2048UI=function(){
         $('#bestCount').text(Math.max(self.game.score, $('#bestCount').text()));
     }
 
+    // Updates the tileboard based on the current version number
+    this.updateTileboard = function(){
+        $('#tileboard').html("");
+        for(let tile of self.game.tiles){
+            if (self.version === 1) {
+                $('#tileboard').append("<img class='gif' id='gif" + tile.pos + "' src='pokemon/Number/" + tile.val + 
+                    ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(tile.pos)+"px; left:"
+                    +self.calculateLeftMargin(tile.pos)+"px'></img>");
+            }
+            else {
+                $('#tileboard').append("<img class='gif' id='gif" + tile.pos + "' src='pokemon/Edited/" + tile.val + 
+                ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(tile.pos)+"px; left:"
+                +self.calculateLeftMargin(tile.pos)+"px'></img>");
+            }
+        }
+
+    }
+
     // calculate & complete a move
     this.animate = function(){
-
         if(self.game.dir === 0)
             return;
         for(let tile of self.game.tiles){
             tile.from = tile.pos;
         }
         do {
-
             let moving = false;
             self.game.tiles.sort((x,y) => self.game.dir*(y.pos - x.pos));
             for(let tile of self.game.tiles)
@@ -128,7 +201,6 @@ var pokemon2048UI=function(){
                     
                     self.generateNewTile();
                     }, 200);
-
             } 
             self.game.hasPossibleMoves = moving;
         } while (self.game.hasPossibleMoves === true);
@@ -142,13 +214,34 @@ var pokemon2048UI=function(){
         let val       = 2 + 2*Math.floor(Math.random()*1.11);
         self.game.generateTile(pos, val);
         
-        $('#tileboard').append("<img class='gif' id='gif" + pos + "' src='pokemon/Edited/" + val + 
-            ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
-            +self.calculateLeftMargin(pos)+"px'></img>");
+        if (self.version === 1) {
+            $('#tileboard').append("<img class='gif' id='gif" + pos + "' src='pokemon/Number/" + val + 
+                ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
+                +self.calculateLeftMargin(pos)+"px'></img>");
+        }
+        else {
+            $('#tileboard').append("<img class='gif' id='gif" + pos + "' src='pokemon/Edited/" + val + 
+                ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
+                +self.calculateLeftMargin(pos)+"px'></img>");
+        }
         $('#gif'+pos).animate({left:'+=56px', top:'+=56px'}, 0);
         $('#gif'+pos).animate({width:'112px', height:'112px', left:'+=-56px', top:'+=-56px'}, 180);
     }
 
+    this.something = function(){
+
+        var btn=document.getElementById('upload');
+        if (btn.files && btn.files[0]){
+            var img=document.getElementById('myImg'+imgNum);
+            var url=URL.createObjectURL(btn.files[0]);
+            var className='.c'+imgNum;
+            img.src=url;
+            $(className).attr('src',url);
+            console.log(imgUrls[imgNum])
+            imgUrls[imgNum] = url;
+        }
+        imgNum*=2;
+    }
 
     // Simulates movements of tiles
     this.runMovements = function(){
@@ -175,7 +268,8 @@ var pokemon2048UI=function(){
     this.mergeTiles = function(){
         for(let tile of self.game.tiles){
             if(tile.merging == true) {
-                $('#gif'+tile.pos).remove();
+                setTimeout(function(){$('#gif'+tile.pos).remove();}, 180);
+                // $('#gif'+tile.pos).remove();
             }
         }
         for (let i = 0; i < 16; i++){
@@ -187,10 +281,17 @@ var pokemon2048UI=function(){
                 self.game.score += tile.val;
                 tile.val *= 2;
                 tile.merging = false;
-                
-                $('#tileboard').append("<img class='gif' id='gif" + i + "' src='pokemon/Edited/" + tile.val + 
-                ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
-                +self.calculateLeftMargin(i)+"px'></img>");
+
+                if (self.version === 1) {
+                    $('#tileboard').append("<img class='gif' id='gif" + i + "' src='pokemon/Number/" + tile.val + 
+                        ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
+                        +self.calculateLeftMargin(i)+"px'></img>");
+                }
+                else {
+                    $('#tileboard').append("<img class='gif' id='gif" + i + "' src='pokemon/Edited/" + tile.val + 
+                        ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
+                        +self.calculateLeftMargin(i)+"px'></img>");
+                }
                 $('#gif' + tile.pos).animate({height:'128px', width:'128px', left:'+=-8px', top:'+=-8px'}, 90);
                 $('#gif' + tile.pos).animate({height:'112px', width:'112px', left:'+=8px', top:'+=8px'}, 90);
             }
@@ -213,132 +314,3 @@ var pokemon2048UI=function(){
 
     this.initialize();
 }
-||||||| merged common ancestors
-=======
-var pokemon2048UI=function(){
-    var self = this;
-    this.game = undefined;
-    this.running = false;
-    
-    function sound(src) {
-        this.sound = document.createElement("audio");
-        this.sound.src = src;
-        this.sound.setAttribute("preload", "auto");
-        this.sound.setAttribute("controls", "none");
-        this.sound.style.display = "none";
-        document.body.appendChild(this.sound);
-        this.play = function(){
-          this.sound.play();
-        }
-        this.stop = function(){
-          this.sound.pause();
-        }
-      }
-    this.initialize = function(){
-
-        self.game = new pokemon2048();
-        
-        var map_keyevent_to_dir = {
-            37: -1, // Left
-            38: -4, // Up
-            39: 1,  // Right
-            40: 4   // Down
-        };
-
-        // key listener
-        $('body').keydown(function(event){
-            // console.info("keydown det:", event.which);
-            var mapped_dir = map_keyevent_to_dir[event.which];
-            if (mapped_dir !== undefined) {
-                event.preventDefault();
-                self.game.dir = mapped_dir;
-                do {
-                self.game.animate();
-                } while (self.game.hasMoved === true); 
-            }
-            else if (event.which == 82) {
-                var answer = confirm("This will start a new game.");
-                if (answer == true) {
-                    self.game.restart();
-                } 
-            }
-            else if (event.which == 81) {
-                var answer = confirm("This will close your browser tab.");
-                if (answer == true) {
-                    window.close();	
-                }
-            }
-            self.updateUI();
-            setTimeout(() => {
-                self.game.checkGameState();
-            },0);
-            
-        });
-
-        // Restart btn listener
-        $('#Restart').on('click', function(){
-            console.info("Restart btn clicked");
-            var startSound;
-            startSound = new sound("sounds/start.wav")
-            startSound.play();
-            self.game.restart();
-            self.updateUI();
-        });
-
-        // ChangeV btn listener
-        $('#changeV').on('click', function(){
-            console.info("changeV btn clicked");
-        });
-
-        // Sound btn listener
-        $('#sound').on('click', function(){
-            console.info("sound btn clicked");
-            var themeSong;
-            themeSong = new sound("sounds/pokerap.mp3")
-            themeSong.play();
-        });
-
-        self.updateUI();
-
-    };
-
-    // TODO:: put in animation codes?
-    this.refreshView = function(){
-        
-    };
-
-
-    // call this to update display after each move
-    this.updateUI = function(){
-        // if (self.running==false) {
-        //     return;
-        // }
-
-        // TODO:: Need to add animations.
-
-        $(".cell").each(function(){
-            var cell_id = parseInt($(this).attr("id"));         
-            var cur_tile = self.game.getTile(cell_id);
-            if (cur_tile !== undefined && cur_tile != null){
-                // console.info("Found a cell! ", cell_id);
-                // $(this).text(cur_tile.val);
-
-                $(this).html("<img src='pokemon/Edited/" + cur_tile.val + ".gif'></img>");
-
-                
-
-                // TODO:: need to Replace with CSS functions.
-            }
-            else {
-                $(this).text("");
-            }
-             
-        });
-
-        $('#scoreCount').text(self.game.score);
-        $('#bestCount').text(Math.max(self.game.score, $('#bestCount').text()));
-    }
-
-    this.initialize();
-}
->>>>>>> 95cc8583d70c0e3ca8aa30845f4d9b8a8eb406fd

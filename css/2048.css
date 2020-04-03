@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*@charset "UTF-8";*/
 /***CSS document***/
 
@@ -9,14 +8,46 @@ body {
 	background-size: 100%;
 	height:1400px;
 }
+.overlay-content {
+	position: relative;
+	top: 11%;
+	width: 93%;
+	text-align: center;
+	margin-top: 30px;
+  }
 
-#fixbox {
-    width:200px;
-	height:500px;
-	position:fixed;
-	left:0;
-	border-radius: 0px 0px;
-}
+  
+.a {
+	padding: 8px;
+	text-decoration: none;
+	font-size: 36px;
+	color: #074410;
+	display: block;
+	transition: 0.3s;
+  }
+
+  
+  .overlay .closebtn {
+	position: absolute;
+	top: 20px;
+	right: 45px;
+	font-size: 60px;
+  }
+
+.overlay {
+	position: fixed; /* Sit on top of the page content */
+	display: none; /* Hidden by default */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+	z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+	cursor: pointer; /* Add a pointer on hover */
+  }
+
+
+
 
 #board {
 	position: relative;
@@ -188,285 +219,9 @@ body {
 	height: 150px;
 	margin: 0 auto;
 }
-
 #list li{
 	list-style: none;
 }
-
 #gamename {
-
 }
-||||||| merged common ancestors
-/*@charset "UTF-8";*/
-/***CSS document***/
-
-body {
-    margin:0 auto;
-	padding:0; 
-    background-color: #F5ECB3;
-	background-size: 100%;
-	height:1400px;
-}
-
-#fixbox {
-    width:200px;
-	height:500px;
-	position:fixed;
-	border: 5px solid red;
-	left:0;
-	border-radius: 0px 0px;
-}
-
-#board {
-	position: relative;
-	margin:0 auto;
-	width:65%;
-	height: 100%;
-	background-color: #F5ECB3;
-	border: 5px solid blue;
-}
-
-#mainboard {
-	margin:0 auto;
-	top:0px;
-	/*width:500px;
-	height:500px;
-	*/
-	width:80%;
-	height:600px;
-	position:relative;
-	border: 5px solid green;
-	z-index: 1;
-}
-
-#gameboard {
-	width: 510px;
-	height: 500px;
-	border: 3px solid orange;
-}
-
-.row {
-	width: 100%;
-	height:125px;
-	position: relative;
-	margin:0 auto;
-	border: solid 1px black;
-}
-
-.cell {
-	width: 120px;
-	height: 120px;
-	margin-right: 5px;
-	float: left;
-	border-radius: 5px;
-	border: solid 1px blue;
-}
-
-	.cell:last-child {
-	  margin-right: 5px; 
-	}
-
-#name {
-	margin:0 auto;
-	font-weight: bold;
-	text-align: center;
-	font-size: 70px;
-	width: 100%;
-	height: 100px;
-}
-
-#control {
-	margin: 0 auto;
-	top: 0px;
-	width:80%;
-	height:300px;
-	position:relative;
-	border:5px solid pink;
-}
-
-#scoreContainer {
-	margin:0 auto;
-	right: 0;
-	width: 30%;
-	height: 70px;
-	position: absolute;
-	font-size:30px;
-	border: solid 3px green;
-}
-
-#newG {
-	border: solid 3px green;
-	margin:0 auto;
-	top:0;
-	width:30%;
-	height: 30px;
-	position: absolute;
-
-}
-
-.OutputT {
-	border: solid 1px black;
-
-}
-
-
-#aboutus {
-	margin: 0 auto;
-	width:100%;
-	height: 400px;
-	position:relative;
-	border: 3px solid yellow;
-}
-
-/*
-#list {
-	width: 100%;
-	height: 150px;
-	margin: 0 auto;
-}
-
-#list li{
-	list-style: none;
-}
-
-#gamename {
-
-}
-=======
-/*@charset "UTF-8";*/
-/***CSS document***/
-
-body {
-    margin:0 auto;
-	padding:0; 
-    background-color: #F5ECB3;
-	background-size: 100%;
-	height:1400px;
-}
-
-#fixbox {
-    width:200px;
-	height:500px;
-	position:fixed;
-	border: 5px solid red;
-	left:0;
-	border-radius: 0px 0px;
-}
-
-#board {
-	position: relative;
-	margin:0 auto;
-	width:65%;
-	height: 100%;
-	background-color: #F5ECB3;
-	border: 5px solid blue;
-}
-
-#mainboard {
-	margin:0 auto;
-	top:0px;
-	/*width:500px;
-	height:500px;
-	*/
-	width:80%;
-	height:600px;
-	position:relative;
-	border: 5px solid green;
-	z-index: 1;
-}
-
-#gameboard {
-	width: 510px;
-	height: 500px;
-	border: 3px solid orange;
-}
-
-.row {
-	width: 100%;
-	height:125px;
-	position: relative;
-	margin:0 auto;
-	border: solid 1px black;
-}
-
-.cell {
-	width: 120px;
-	height: 120px;
-	margin-right: 5px;
-	float: left;
-	border-radius: 5px;
-	border: solid 1px blue;
-}
-
-	.cell:last-child {
-	  margin-right: 5px; 
-	}
-
-#name {
-	margin:0 auto;
-	font-weight: bold;
-	text-align: center;
-	font-size: 70px;
-	width: 100%;
-	height: 100px;
-}
-
-#control {
-	margin: 0 auto;
-	top: 0px;
-	width:80%;
-	height:300px;
-	position:relative;
-	border:5px solid pink;
-}
-
-#scoreContainer {
-	margin:0 auto;
-	right: 0;
-	width: 30%;
-	height: 70px;
-	position: absolute;
-	font-size:30px;
-	border: solid 3px green;
-}
-
-#newG {
-	border: solid 3px green;
-	margin:0 auto;
-	top:0;
-	width:30%;
-	height: 30px;
-	position: absolute;
-
-}
-
-.OutputT {
-	border: solid 1px black;
-
-}
-
-
-#aboutus {
-	margin: 0 auto;
-	width:100%;
-	height: 400px;
-	position:relative;
-	border: 3px solid yellow;
-}
-
-/*
-#list {
-	width: 100%;
-	height: 150px;
-	margin: 0 auto;
-}
-
-#list li{
-	list-style: none;
-}
-
-#gamename {
-
-}
->>>>>>> 95cc8583d70c0e3ca8aa30845f4d9b8a8eb406fd
 */
