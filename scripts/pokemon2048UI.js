@@ -6,6 +6,7 @@ var pokemon2048UI=function(){
     this.initialize = function(){
 
         self.game = new pokemon2048();
+        self.version = 1;
 
         var map_keyevent_to_dir = {
             37: -1, // Left
@@ -63,8 +64,23 @@ var pokemon2048UI=function(){
             self.updateUI();
         });
 
-        // ChangeV btn listener
+        //change version btn listener
         $('#changeV').on('click', function(){
+            if(self.version === 1){
+                self.version = 2;
+                alert("version is: "+self.version);
+            }
+            else{
+                self.version = 1;
+                alert("version is: "+self.version);
+            }
+            self.game.restart();
+            $('#tileboard').html("");
+
+            self.generateNewTile();
+            self.generateNewTile();
+            self.updateUI();
+            
         });
 
         // Sound btn listener
@@ -101,14 +117,12 @@ var pokemon2048UI=function(){
 
     // calculate & complete a move
     this.animate = function(){
-
         if(self.game.dir === 0)
             return;
         for(let tile of self.game.tiles){
             tile.from = tile.pos;
         }
         do {
-
             let moving = false;
             self.game.tiles.sort((x,y) => self.game.dir*(y.pos - x.pos));
             for(let tile of self.game.tiles)
@@ -141,9 +155,17 @@ var pokemon2048UI=function(){
         let val       = 2 + 2*Math.floor(Math.random()*1.11);
         self.game.generateTile(pos, val);
         
-        $('#tileboard').append("<img class='gif' id='gif" + pos + "' src='pokemon/Edited/" + val + 
-            ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
-            +self.calculateLeftMargin(pos)+"px'></img>");
+        if (self.version === 1) {
+            $('#tileboard').append("<img class='gif' id='gif" + pos + "' src='pokemon/Number/" + val + 
+                ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
+                +self.calculateLeftMargin(pos)+"px'></img>");
+        }
+        else {
+            alert("reach here");
+            $('#titleboard').append("<img class='gif' id=gif" + pos + " ' src='pokemon/Edited/" + val + 
+                ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
+                +self.calculateLeftMargin(pos)+"px'></img>");
+        }
         $('#gif'+pos).animate({left:'+=56px', top:'+=56px'}, 0);
         $('#gif'+pos).animate({width:'112px', height:'112px', left:'+=-56px', top:'+=-56px'}, 180);
     }
@@ -186,12 +208,19 @@ var pokemon2048UI=function(){
                 self.game.score += tile.val;
                 tile.val *= 2;
                 tile.merging = false;
-                
-                $('#tileboard').append("<img class='gif' id='gif" + i + "' src='pokemon/Edited/" + tile.val + 
-                ".gif' style='width:112px; height:112px; top:"+self.calculateTopMargin(i)+"px; left:"
-                +self.calculateLeftMargin(i)+"px'></img>");
-                $('#gif' + tile.pos).animate({height:'128px', width:'128px', left:'+=-8px', top:'+=-8px'}, 90);
-                $('#gif' + tile.pos).animate({height:'112px', width:'112px', left:'+=8px', top:'+=8px'}, 90);
+
+                if (self.version === 1) {
+                    $('#tileboard').append("<img class='gif' id='gif" + pos + "' src='pokemon/Number/" + val + 
+                        ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
+                        +self.calculateLeftMargin(pos)+"px'></img>");
+                }
+                else {
+                    $('#titleboard').append("<img class='gif' id=gif" + pos + " ' src='pokemon/Edited/" + val + 
+                        ".gif' style='width:0px; height:0px; top:"+self.calculateTopMargin(pos)+"px; left:"
+                        +self.calculateLeftMargin(pos)+"px'></img>");
+                }
+                $('#gif'+pos).animate({left:'+=56px', top:'+=56px'}, 0);
+                $('#gif'+pos).animate({width:'112px', height:'112px', left:'+=-56px', top:'+=-56px'}, 180);
             }
             
         }
